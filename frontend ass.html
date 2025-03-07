@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Table Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+        }
+        table {
+            width: 80%;
+            margin: 20px auto;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 2px solid black;
+            padding: 10px;
+            text-align: center;
+        }
+        .highlight {
+            background-color: yellow;
+        }
+    </style>
+</head>
+<body>
+    <h2>Dynamic Table Generator</h2>
+    <label>Rows:</label>
+    <input type="number" id="rows" min="1" value="3">
+    <label>Columns:</label>
+    <input type="number" id="cols" min="1" value="3">
+    <button onclick="generateTable()">Generate Table</button>
+    
+    <h3>Table Styles</h3>
+    <label>Border Color:</label>
+    <input type="color" id="borderColor" onchange="updateStyles()">
+    <label>Background Color:</label>
+    <input type="color" id="bgColor" onchange="updateStyles()">
+    <label>Text Alignment:</label>
+    <select id="textAlign" onchange="updateStyles()">
+        <option value="left">Left</option>
+        <option value="center" selected>Center</option>
+        <option value="right">Right</option>
+    </select>
+    
+    <div id="tableContainer"></div>
+    
+    <script>
+        function generateTable() {
+            const rows = document.getElementById("rows").value;
+            const cols = document.getElementById("cols").value;
+            const tableContainer = document.getElementById("tableContainer");
+            
+            let table = document.createElement("table");
+            for (let i = 0; i < rows; i++) {
+                let row = table.insertRow();
+                row.addEventListener("click", function() {
+                    highlightRow(this);
+                });
+                for (let j = 0; j < cols; j++) {
+                    let cell = row.insertCell();
+                    cell.textContent = `Row ${i + 1}, Col ${j + 1}`;
+                }
+            }
+            tableContainer.innerHTML = "";
+            tableContainer.appendChild(table);
+            updateStyles();
+        }
+        
+        function updateStyles() {
+            let table = document.querySelector("table");
+            if (table) {
+                let borderColor = document.getElementById("borderColor").value;
+                let bgColor = document.getElementById("bgColor").value;
+                let textAlign = document.getElementById("textAlign").value;
+                table.style.borderColor = borderColor;
+                table.style.backgroundColor = bgColor;
+                table.style.textAlign = textAlign;
+            }
+        }
+        
+        function highlightRow(row) {
+            let rows = document.querySelectorAll("tr");
+            rows.forEach(r => r.classList.remove("highlight"));
+            row.classList.add("highlight");
+        }
+    </script>
+</body>
+</html>
