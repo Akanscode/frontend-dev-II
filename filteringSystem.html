@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real-Time Search</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            text-align: center;
+            background: #f8f9fa;
+            padding: 20px;
+        }
+        input {
+            width: 300px;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        li {
+            padding: 10px;
+            background: white;
+            margin: 5px;
+            border-radius: 5px;
+            box-shadow: 0px 2px 5px rgba(0,0,0,0.1);
+        }
+        .hidden { display: none; }
+    </style>
+</head>
+<body>
+
+    <h2>Real-Time Search Filter</h2>
+    <input type="text" id="searchInput" placeholder="Search for an item...">
+    <button onclick="document.getElementById('searchInput').value=''; filterItems();">Reset</button>
+
+    <ul id="itemList">
+        <li>Apple</li>
+        <li>Banana</li>
+        <li>Cherry</li>
+        <li>Dragonfruit</li>
+        <li>Grapes</li>
+    </ul>
+
+    <script>
+        const input = document.getElementById("searchInput");
+        const listItems = document.querySelectorAll("#itemList li");
+
+        input.addEventListener("input", filterItems);
+
+        function filterItems() {
+            const searchText = input.value.toLowerCase();
+            listItems.forEach(item => {
+                item.classList.toggle("hidden", !item.textContent.toLowerCase().includes(searchText));
+            });
+        }
+    </script>
+
+</body>
+</html>

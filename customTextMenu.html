@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom Context Menu</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            text-align: center;
+            margin: 50px;
+            background-color: #f4f4f4;
+        }
+        #contextMenu {
+            position: absolute;
+            background: white;
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+            border-radius: 5px;
+            display: none;
+            padding: 10px;
+        }
+        #contextMenu div {
+            padding: 10px;
+            cursor: pointer;
+        }
+        #contextMenu div:hover {
+            background: #007bff;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <h2>Right-Click Anywhere to Open the Custom Menu</h2>
+
+    <div id="contextMenu">
+        <div onclick="changeBackground()">Change Background Color</div>
+        <div onclick="copyText()">Copy Text</div>
+        <div onclick="showTime()">Show Current Time</div>
+    </div>
+
+    <script>
+        const menu = document.getElementById("contextMenu");
+
+        document.addEventListener("contextmenu", (e) => {
+            e.preventDefault();
+            menu.style.display = "block";
+            menu.style.top = `${e.pageY}px`;
+            menu.style.left = `${e.pageX}px`;
+        });
+
+        document.addEventListener("click", () => {
+            menu.style.display = "none";
+        });
+
+        function changeBackground() {
+            document.body.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 80%)`;
+        }
+
+        function copyText() {
+            navigator.clipboard.writeText("Sample Copied Text");
+            alert("Text copied!");
+        }
+
+        function showTime() {
+            alert(`Current Time: ${new Date().toLocaleTimeString()}`);
+        }
+    </script>
+</body>
+</html>

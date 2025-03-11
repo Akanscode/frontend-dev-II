@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ Section</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #f8f9fa;
+            text-align: center;
+            padding: 20px;
+        }
+        .faq-container {
+            max-width: 500px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        .faq-item {
+            margin-bottom: 10px;
+            border-bottom: 1px solid #ddd;
+            overflow: hidden;
+        }
+        .faq-question {
+            background: #007bff;
+            color: white;
+            padding: 10px;
+            width: 100%;
+            border: none;
+            text-align: left;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .faq-question:hover {
+            background: #0056b3;
+        }
+        .faq-answer {
+            background: #f1f1f1;
+            padding: 10px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-out;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="faq-container">
+        <h2>Frequently Asked Questions</h2>
+
+        <div class="faq-item">
+            <button class="faq-question">What is JavaScript?</button>
+            <div class="faq-answer">
+                JavaScript is a programming language used to make web pages interactive.
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <button class="faq-question">How does localStorage work?</button>
+            <div class="faq-answer">
+                localStorage allows you to store data in the browser that remains even after the page is refreshed.
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <button class="faq-question">What is the DOM?</button>
+            <div class="faq-answer">
+                The DOM (Document Object Model) represents the structure of an HTML document as objects.
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        document.querySelectorAll(".faq-question").forEach(button => {
+            button.addEventListener("click", function () {
+                let answer = this.nextElementSibling;
+
+                document.querySelectorAll(".faq-answer").forEach(el => {
+                    if (el !== answer) {
+                        el.style.maxHeight = null;
+                    }
+                });
+
+                if (answer.style.maxHeight) {
+                    answer.style.maxHeight = null;
+                } else {
+                    answer.style.maxHeight = answer.scrollHeight + "px";
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>

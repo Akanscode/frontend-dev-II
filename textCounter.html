@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Character Counter</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #f8f9fa;
+            text-align: center;
+            padding: 20px;
+        }
+        .container {
+            max-width: 400px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        textarea {
+            width: 100%;
+            height: 120px;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            font-size: 16px;
+            resize: none;
+            outline: none;
+        }
+        .counter {
+            margin-top: 10px;
+            font-weight: bold;
+            padding: 5px;
+            border-radius: 5px;
+        }
+        .safe { color: green; }
+        .warning { color: orange; }
+        .error { color: red; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Live Character Counter</h2>
+        <textarea id="textArea" placeholder="Type here..." maxlength="200"></textarea>
+        <p id="charCount" class="counter">0 / 200</p>
+    </div>
+
+    <script>
+        const textArea = document.getElementById("textArea");
+        const charCount = document.getElementById("charCount");
+        const maxLimit = 200;
+
+        function updateCounter() {
+            let count = textArea.value.length;
+            charCount.textContent = `${count} / ${maxLimit}`;
+
+            if (count < 150) {
+                charCount.className = "counter safe";
+            } else if (count >= 150 && count < maxLimit) {
+                charCount.className = "counter warning";
+            } else {
+                charCount.className = "counter error";
+                alert("⚠️ Character limit exceeded!"); // Alert user
+                textArea.value = textArea.value.substring(0, maxLimit); // Prevent extra input
+            }
+        }
+
+        // Handle both keypress and input events
+        textArea.addEventListener("input", updateCounter);
+        textArea.addEventListener("keydown", (event) => {
+            if (textArea.value.length >= maxLimit && event.key !== "Backspace" && event.key !== "Delete") {
+                alert("⚠️ Maximum characters reached!"); // Alert user when typing beyond limit
+                event.preventDefault(); // Stop further input
+            }
+        });
+    </script>
+
+</body>
+</html>

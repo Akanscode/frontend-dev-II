@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+            text-align: center;
+            padding: 50px;
+        }
+        .container {
+            max-width: 400px;
+            margin: auto;
+        }
+        .box {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 5px 10px rgba(0,0,0,0.2);
+            display: none;
+        }
+        input, button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            border: none;
+            border-radius: 5px;
+        }
+        button {
+            background: #28a745;
+            color: white;
+            cursor: pointer;
+        }
+        .oauth-buttons button {
+            background: #007bff;
+        }
+        .dashboard {
+            display: none;
+        }
+        .project-list {
+            text-align: left;
+            padding: 0;
+            list-style: none;
+        }
+        .project-list li {
+            padding: 10px;
+            background: #ffffff;
+            margin: 5px 0;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: 0.3s;
+        }
+        .project-list li:hover {
+            background: #e0e0e0;
+        }
+        .project-list li a {
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+            flex-grow: 1;
+        }
+        .project-list li img {
+            width: 24px;
+            height: 24px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- LOGIN FORM -->
+        <div class="box" id="login-box">
+            <h2>Login</h2>
+            <input type="text" id="username" placeholder="Username" required>
+            <input type="password" id="password" placeholder="Password" required>
+            <button onclick="login()">Login</button>
+
+            <h3>OR</h3>
+            <div class="oauth-buttons">
+                <button onclick="oauthLogin('Google')">Login with Google</button>
+                <button onclick="oauthLogin('GitHub')">Login with GitHub</button>
+                <button onclick="oauthLogin('Microsoft')">Login with Microsoft</button>
+            </div>
+
+            <h3>Get Authentication Code</h3>
+            <input type="email" id="email" placeholder="Enter Gmail">
+            <button onclick="sendCode()">Send Code</button>
+        </div>
+
+        <!-- DASHBOARD -->
+        <div class="box dashboard" id="dashboard">
+            <h1>Welcome!</h1>
+            <h2>Frontend Development 2 Assignments </h2>
+            <p>Select a project:</p>
+            <ul class="project-list">
+    <li>
+        <img src="https://img.icons8.com/ios-filled/50/000000/checklist.png" alt="To-Do List">
+        <a href="to do list.html" target="_blank">To-Do List</a>
+    </li>
+    <li>
+        <img src="https://img.icons8.com/ios-filled/50/000000/stopwatch.png" alt="Stopwatch">
+        <a href="interactive Stopwatch.html" target="_blank">Interactive Stopwatch</a>
+    </li>
+    <li>
+        <img src="https://img.icons8.com/ios-filled/50/000000/image.png" alt="Gallery">
+        <a href="image Gallery.html" target="_blank">Image Gallery</a>
+    </li>
+    <li>
+        <img src="https://img.icons8.com/ios-filled/50/000000/search.png" alt="Search">
+        <a href="filteringSystem.html" target="_blank">Filtering System</a>
+    </li>
+    <li>
+        <img src="https://img.icons8.com/ios-filled/50/000000/faq.png" alt="FAQ">
+        <a href="faq.html" target="_blank">FAQ Section</a>
+    </li>
+    <li>
+        <img src="https://img.icons8.com/ios-filled/50/000000/menu.png" alt="Context Menu">
+        <a href="customTextMenu.html" target="_blank">Custom Context Menu</a>
+    </li>
+    <li>
+        <img src="https://img.icons8.com/ios-filled/50/000000/type.png" alt="Text Counter">
+        <a href="/Ass/textCounter.html/textCounter.html" target="_blank">Text Counter</a>
+    </li>
+    <li>
+        <img src="https://img.icons8.com/ios-filled/50/000000/checked.png" alt="Form Validator">
+        <a href="customFormValidator.html" target="_blank">Form Validator</a>
+    </li>
+    <li>
+        <img src="https://img.icons8.com/ios-filled/50/000000/drag-and-drop.png" alt="Drag & Drop">
+        <a href="drag&dropTaskOrgamizer.html" target="_blank">Drag & Drop Task Organizer</a>
+    </li>
+</ul>
+
+            <button onclick="logout()">Logout</button>
+        </div>
+    </div>
+
+    <script>
+        // Dummy Users
+        const users = {
+            "admin": "integrityguy01@gmail.com", 
+            "user": "admin1234"
+        };
+
+        // Show login box
+        document.getElementById('login-box').style.display = 'block';
+
+        function login() {
+            let username = document.getElementById('username').value;
+            let password = document.getElementById('password').value;
+
+            if (users[username] && users[username] === password) {
+                alert("Login Successful!");
+                showDashboard();
+            } else {
+                alert("Invalid Credentials");
+            }
+        }
+
+        function oauthLogin(provider) {
+            alert(`Redirecting to ${provider} login...`);
+            showDashboard();
+        }
+
+        function sendCode() {
+            let email = document.getElementById('email').value;
+            if (email) {
+                alert("Authentication code sent to " + email);
+            } else {
+                alert("Enter a valid Gmail address");
+            }
+        }
+
+        function showDashboard() {
+            document.getElementById('login-box').style.display = 'none';
+            document.getElementById('dashboard').style.display = 'block';
+        }
+
+        function logout() {
+            document.getElementById('dashboard').style.display = 'none';
+            document.getElementById('login-box').style.display = 'block';
+        }
+    </script>
+
+</body>
+</html>

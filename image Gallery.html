@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Gallery</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            text-align: center;
+        }
+        .gallery img {
+            width: 100px;
+            cursor: pointer;
+            margin: 5px;
+            transition: 0.3s;
+        }
+        .gallery img:hover {
+            transform: scale(1.1);
+        }
+        .lightbox {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            display: none;
+        }
+        .lightbox img {
+            width: 60%;
+            border-radius: 10px;
+        }
+        .close, .next, .prev {
+            position: absolute;
+            color: white;
+            font-size: 30px;
+            cursor: pointer;
+        }
+        .close { top: 10px; right: 10px; }
+        .prev { left: 10%; }
+        .next { right: 10%; }
+    </style>
+</head>
+<body>
+
+    <h2>Image Gallery</h2>
+    <div class="gallery">
+        <img src="/cohabit.jpg" onclick="openLightbox(this)">
+        <img src="/cook.PNG" onclick="openLightbox(this)">
+        <img src="/mine.jpg" onclick="openLightbox(this)">
+    </div>
+
+    <div id="lightbox" class="lightbox">
+        <span class="close" onclick="closeLightbox()">×</span>
+        <img id="lightbox-img">
+        <span class="prev" onclick="prevImage()">❮</span>
+        <span class="next" onclick="nextImage()">❯</span>
+    </div>
+
+    <script>
+        let currentImage, images;
+        
+        function openLightbox(img) {
+            images = document.querySelectorAll(".gallery img");
+            currentImage = [...images].indexOf(img);
+            document.getElementById("lightbox-img").src = img.src;
+            document.getElementById("lightbox").style.display = "flex";
+        }
+        
+        function closeLightbox() {
+            document.getElementById("lightbox").style.display = "none";
+        }
+
+        function prevImage() {
+            if (currentImage > 0) openLightbox(images[--currentImage]);
+        }
+
+        function nextImage() {
+            if (currentImage < images.length - 1) openLightbox(images[++currentImage]);
+        }
+    </script>
+
+</body>
+</html>

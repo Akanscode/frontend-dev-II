@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Validation</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #f8f9fa;
+            text-align: center;
+        }
+        form {
+            background: white;
+            padding: 20px;
+            max-width: 400px;
+            margin: auto;
+            border-radius: 10px;
+            box-shadow: 0px 2px 10px rgba(0,0,0,0.2);
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .error {
+            color: red;
+            font-size: 12px;
+            display: none;
+        }
+        .success {
+            color: green;
+            font-size: 14px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Form Validation</h2>
+    <form id="myForm">
+        <input type="text" id="name" placeholder="Name">
+        <p class="error" id="nameError">Name must be at least 3 characters</p>
+
+        <input type="email" id="email" placeholder="Email">
+        <p class="error" id="emailError">Invalid email format</p>
+
+        <input type="password" id="password" placeholder="Password">
+        <p class="error" id="passwordError">Password must be at least 6 characters</p>
+
+        <button type="submit">Submit</button>
+        <p class="success" id="successMessage">Form submitted successfully!</p>
+    </form>
+
+    <script>
+        document.getElementById("myForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            let valid = true;
+
+            const name = document.getElementById("name").value;
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+
+            document.querySelectorAll(".error").forEach(e => e.style.display = "none");
+
+            if (name.length < 3) {
+                document.getElementById("nameError").style.display = "block";
+                valid = false;
+            }
+            if (!email.includes("@") || !email.includes(".")) {
+                document.getElementById("emailError").style.display = "block";
+                valid = false;
+            }
+            if (password.length < 6) {
+                document.getElementById("passwordError").style.display = "block";
+                valid = false;
+            }
+
+            if (valid) {
+                document.getElementById("successMessage").style.display = "block";
+                setTimeout(() => document.getElementById("successMessage").style.display = "none", 3000);
+            }
+        });
+    </script>
+
+</body>
+</html>
